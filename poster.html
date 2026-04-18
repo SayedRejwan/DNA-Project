@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rewriting Fate — CRISPR-Cas9 & Beta-Thalassemia · World DNA Day 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ─── PRINT ─────────────────────────── */
+@page { size: A2 portrait; margin: 0; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── TOKENS ─────────────────────────── */
+:root {
+  --bg:     #08101F;
+  --bg2:    #0D1628;
+  --gold:   #F5A623;
+  --goldlt: #FFD06B;
+  --red:    #E84545;
+  --teal:   #00D4A8;
+  --teallt: #4EFFD9;
+  --white:  #EFF4FF;
+  --dim:    #8892AA;
+  --card:   rgba(255,255,255,0.04);
+  --cb:     rgba(255,255,255,0.09);
+  --gb:     rgba(245,166,35,0.25);
+  --rb:     rgba(232,69,69,0.28);
+  --tb:     rgba(0,212,168,0.28);
+}
+
+/* ─── BODY / POSTER SHELL ─────────────── */
+body {
+  background: #030609;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+}
+
+.poster {
+  width: 420mm;
+  min-height: 594mm;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+@media print {
+  body { padding: 0; background: none; }
+  .poster { width: 100%; min-height: 100%; page-break-inside: avoid; }
+}
+
+/* ─── TYPOGRAPHY HELPERS ─────────────── */
+.eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.section-head {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14pt;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.body-sm { font-size: 8.5pt; line-height: 1.55; color: var(--dim); }
+.body-xs { font-size: 7.5pt; line-height: 1.5;  color: var(--dim); }
+
+/* ─── TAG CHIPS ──────────────────────── */
+.chip {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+.chip-r { background: rgba(232,69,69,0.18); color: var(--red);  border: 1px solid var(--rb); }
+.chip-t { background: rgba(0,212,168,0.15); color: var(--teal); border: 1px solid var(--tb); }
+.chip-g { background: rgba(245,166,35,0.15); color: var(--gold); border: 1px solid var(--gb); }
+
+/* ─── CARD BOX ───────────────────────── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--cb);
+  border-radius: 5px;
+  padding: 11pt 13pt;
+}
+.card-r { border-color: var(--rb); }
+.card-t { border-color: var(--tb); }
+.card-g { border-color: var(--gb); }
+
+/* ─── BULLET LIST ────────────────────── */
+.blist { display: flex; flex-direction: column; gap: 5pt; }
+.bitem { display: flex; align-items: flex-start; gap: 7pt; font-size: 8.5pt; line-height: 1.45; }
+.bdot  { width: 6pt; height: 6pt; border-radius: 50%; flex-shrink: 0; margin-top: 3pt; }
+.bdot-r { background: var(--red);  }
+.bdot-t { background: var(--teal); }
+.bdot-g { background: var(--gold); }
+
+/* ═══════════════════════════════════════
+   SECTION 1 · HEADER
+═══════════════════════════════════════ */
+.header {
+  padding: 26pt 34pt 20pt;
+  display: grid;
+  grid-template-columns: 1fr 200pt;
+  gap: 14pt;
+  align-items: center;
+  border-bottom: 2pt solid var(--gold);
+  background: linear-gradient(135deg, #08101F 0%, #0E1A30 60%, #08101F 100%);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 10% 50%, rgba(245,166,35,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.h-eyebrow { color: var(--gold); margin-bottom: 9pt; }
+
+.h-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30pt;
+  font-weight: 900;
+  line-height: 1.12;
+  margin-bottom: 11pt;
+}
+.h-title .accent-g  { color: var(--gold); }
+.h-title .accent-t  { color: var(--teal); }
+
+.h-tagline {
+  font-size: 9pt;
+  line-height: 1.6;
+  color: var(--dim);
+  max-width: 390pt;
+}
+.h-tagline strong { color: var(--white); }
+
+/* ═══════════════════════════════════════
+   SECTION 2 · STATS + DISEASE
+═══════════════════════════════════════ */
+.s2 {
+  display: grid;
+  grid-template-columns: 200pt 1fr;
+  border-bottom: 1px solid var(--cb);
+  min-height: 160pt;
+}
+
+/* --- stats panel --- */
+.stats {
+  padding: 18pt 20pt;
+  border-right: 1px solid var(--gb);
+  background: linear-gradient(180deg, rgba(245,166,35,0.06) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 12pt;
+}
+.stats-title { color: var(--gold); margin-bottom: 3pt; }
+
+.snum {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  line-height: 1;
+}
+.snum-xl  { font-size: 40pt; color: var(--gold);  }
+.snum-lg  { font-size: 28pt; color: var(--gold);  }
+.snum-tl  { font-size: 32pt; color: var(--teal);  }
+.sunit    { font-size: 14pt; font-weight: 700; color: var(--goldlt); }
+.sunit-t  { font-size: 14pt; font-weight: 700; color: var(--teallt); }
+.sdiv     { height: 1px; background: var(--gb); }
+
+/* --- disease panel --- */
+.disease {
+  padding: 18pt 22pt;
+  display: flex;
+  flex-direction: column;
+  gap: 11pt;
+}
+.disease-eyebrow { color: var(--red); }
+
+.rbc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9pt;
+  margin-top: 2pt;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 3 · CRISPR MECHANISM HERO
+═══════════════════════════════════════ */
+.mechanism {
+  padding: 20pt 34pt;
+  border-bottom: 1px solid var(--cb);
+  background: linear-gradient(180deg, #0B1526 0%, #08101F 100%);
+  position: relative;
+}
+.mechanism::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(0,212,168,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.mech-eyebrow { color: var(--teal); margin-bottom: 5pt; }
+
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  margin-top: 14pt;
+}
+.flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.step-num {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  color: var(--dim);
+  margin-bottom: 5pt;
+  letter-spacing: 1.5px;
+}
+.step-icon {
+  width: 48pt;
+  height: 48pt;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8pt;
+}
+.step-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8pt;
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.3;
+  max-width: 72pt;
+}
+.step-sub { font-size: 7pt; color: var(--dim); margin-top: 3pt; max-width: 72pt; line-height: 1.35; }
+
+.arrow-wrap { flex-shrink: 0; width: 22pt; margin-bottom: 28pt; }
+
+.insight-box {
+  margin-top: 14pt;
+  padding: 9pt 14pt;
+  background: rgba(0,212,168,0.06);
+  border: 1px solid rgba(0,212,168,0.22);
+  border-radius: 4pt;
+  display: flex;
+  gap: 10pt;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 4 · CLINICAL EVIDENCE
+═══════════════════════════════════════ */
+.s4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--cb);
+  min-height: 130pt;
+}
+.s4-left  { padding: 18pt 22pt; border-right: 1px solid var(--cb); }
+.s4-right { padding: 18pt 22pt; }
+
+.bars {
+  display: flex;
+  gap: 14pt;
+  align-items: flex-end;
+  height: 88pt;
+  margin: 10pt 0 6pt;
+}
+.bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4pt;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-val {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12pt;
+  font-weight: 800;
+}
+.bar-fill { width: 100%; border-radius: 3pt 3pt 0 0; }
+.bar-lbl  { font-size: 7pt; color: var(--dim); text-align: center; line-height: 1.3; }
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8pt;
+  margin-top: 10pt;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 5 · CASGEVY + BANGLADESH
+═══════════════════════════════════════ */
+.s5 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--cb);
+  min-height: 110pt;
+}
+.s5-left  {
+  padding: 16pt 22pt;
+  border-right: 1px solid var(--gb);
+  background: rgba(245,166,35,0.03);
+}
+.s5-right { padding: 16pt 22pt; background: rgba(0,212,168,0.02); }
+
+.fda-badge {
+  background: linear-gradient(135deg,#1a3a6b,#0d2248);
+  border: 2px solid #4a7bc8;
+  border-radius: 4pt;
+  padding: 5pt 10pt;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 10pt;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  display: inline-block;
+}
+.ema-badge {
+  background: linear-gradient(135deg,#1a4a2e,#0d2a1a);
+  border: 2px solid #3a9a5c;
+  border-radius: 4pt;
+  padding: 5pt 10pt;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 10pt;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 2px;
+  display: inline-block;
+}
+
+.cta-box {
+  margin-top: 8pt;
+  padding: 7pt 10pt;
+  background: rgba(0,212,168,0.07);
+  border-left: 2.5pt solid var(--teal);
+  border-radius: 0 3pt 3pt 0;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 6 · FOOTER
+═══════════════════════════════════════ */
+.footer {
+  padding: 12pt 34pt;
+  background: #060C18;
+  border-top: 2pt solid var(--gold);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18pt;
+  align-items: center;
+  margin-top: auto;
+}
+.refs { font-size: 7pt; color: var(--dim); line-height: 1.7; }
+.refs strong { color: var(--white); }
+
+.busb-badge {
+  background: var(--gold);
+  color: #000;
+  font-family: 'Montserrat',sans-serif;
+  font-size: 8pt;
+  font-weight: 900;
+  padding: 4pt 10pt;
+  border-radius: 3pt;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 4pt;
+  text-align: center;
+}
+.comp-tag { font-size: 7.5pt; color: var(--dim); line-height: 1.5; text-align: right; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+<!-- ════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════ -->
+<header class="header">
+  <div>
+    <p class="eyebrow h-eyebrow">World DNA Day · April 25, 2026 · BUSB Biotechnology Research</p>
+    <h1 class="h-title">
+      Rewriting <span class="accent-g">Fate:</span><br>
+      How CRISPR-Cas9 Transforms<br>
+      Beta-Thalassemia from a<br>
+      Lifelong Burden into a<br>
+      <span class="accent-t">One-Time Cure</span>
+    </h1>
+    <p class="h-tagline">
+      <strong>Beta-thalassemia</strong> — a single mutation in the HBB gene — sentences millions to lifelong transfusions.
+      In December 2023, the FDA approved <strong>Casgevy</strong>: the world's first CRISPR-Cas9 gene therapy.
+      By reactivating dormant fetal hemoglobin, it freed <strong>93% of patients</strong> from transfusion dependency permanently.
+      With Bangladesh carrying one of the highest thalassemia carrier rates globally, this breakthrough is not abstract —
+      <strong>it is urgent.</strong>
+    </p>
+  </div>
+
+  <!-- DNA Double Helix SVG -->
+  <svg width="200" height="135" viewBox="0 0 200 135" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#F5A623" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#F5A623" stop-opacity="0.3"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00D4A8" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#00D4A8" stop-opacity="0.9"/>
+      </linearGradient>
+    </defs>
+    <!-- Strand 1 (gold) -->
+    <path d="M10,20 C35,20 55,65 100,65 C145,65 165,20 190,20" fill="none" stroke="url(#g1)" stroke-width="2.5"/>
+    <path d="M10,50 C35,50 55,95 100,95 C145,95 165,50 190,50" fill="none" stroke="url(#g1)" stroke-width="2.5" opacity="0.6"/>
+    <path d="M10,80 C35,80 55,125 100,125 C145,125 165,80 190,80" fill="none" stroke="url(#g1)" stroke-width="2.5" opacity="0.35"/>
+    <!-- Strand 2 (teal) -->
+    <path d="M10,20 C35,20 55,-25 100,-25 C145,-25 165,20 190,20" fill="none" stroke="url(#g2)" stroke-width="2.5"/>
+    <path d="M10,50 C35,50 55,5 100,5 C145,5 165,50 190,50" fill="none" stroke="url(#g2)" stroke-width="2.5" opacity="0.6"/>
+    <path d="M10,80 C35,80 55,35 100,35 C145,35 165,80 190,80" fill="none" stroke="url(#g2)" stroke-width="2.5" opacity="0.35"/>
+    <!-- Base pairs -->
+    <line x1="32" y1="20" x2="32" y2="12"  stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="55" y1="37" x2="55" y2="22"  stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="78" y1="57" x2="78" y2="38"  stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="100" y1="65" x2="100" y2="35" stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="122" y1="57" x2="122" y2="38" stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="145" y1="37" x2="145" y2="22" stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <line x1="168" y1="20" x2="168" y2="12" stroke="#8892AA" stroke-width="1.5" opacity="0.7"/>
+    <!-- Base pair labels -->
+    <text x="78" y="62"  text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#00D4A8" opacity="0.85">A·T</text>
+    <text x="100" y="70" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#F5A623" opacity="0.85">G·C</text>
+    <text x="122" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="7" fill="#00D4A8" opacity="0.85">T·A</text>
+    <!-- Chromosome label -->
+    <text x="100" y="128" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#F5A623" letter-spacing="2">HBB · CHR 11p15.5</text>
+    <!-- Nodes at strand crossings -->
+    <circle cx="100" cy="65"  r="3.5" fill="#F5A623" opacity="0.9"/>
+    <circle cx="100" cy="5"   r="3.5" fill="#00D4A8" opacity="0.9"/>
+    <circle cx="100" cy="35"  r="2.5" fill="#00D4A8" opacity="0.6"/>
+  </svg>
+</header>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 2 · STATS + DISEASE
+════════════════════════════════════════════════════ -->
+<section class="s2">
+
+  <!-- Stats panel -->
+  <div class="stats">
+    <p class="eyebrow stats-title">Bangladesh Burden</p>
+
+    <div>
+      <div><span class="snum snum-xl">7</span><span class="sunit">%</span></div>
+      <p class="body-xs" style="margin-top:2pt">Carrier rate in Bangladesh. 1 in 14 people silently carry a mutated HBB allele — one of the highest rates globally.</p>
+    </div>
+
+    <div class="sdiv"></div>
+
+    <div>
+      <div><span class="snum snum-lg">14,000</span><span class="sunit">+</span></div>
+      <p class="body-xs" style="margin-top:2pt">New thalassemia major births annually in South Asia. Most in Bangladesh are undiagnosed.</p>
+    </div>
+
+    <div class="sdiv"></div>
+
+    <div>
+      <div><span class="snum snum-lg">2–4×</span></div>
+      <p class="body-xs" style="margin-top:2pt">Blood transfusions required <em>every month</em> under traditional treatment — for life. Each transfusion adds iron overload.</p>
+    </div>
+
+    <div class="sdiv"></div>
+
+    <div>
+      <div><span class="snum snum-tl">93</span><span class="sunit-t">%</span></div>
+      <p class="body-xs" style="margin-top:2pt; color: var(--teallt);">CRISPR-treated patients achieved full transfusion independence. CLIMB-Thal-111, NEJM 2023.</p>
+    </div>
+  </div>
+
+  <!-- Disease panel -->
+  <div class="disease">
+    <p class="eyebrow disease-eyebrow">The Disease</p>
+    <p class="section-head">Beta-Thalassemia Major:<br>One Gene, Catastrophic Cascade</p>
+    <p class="body-sm">Mutations in <strong style="color:var(--white)">HBB</strong> (chromosome 11p15.5) cripple β-globin synthesis. Without functional hemoglobin, red blood cells collapse before ever leaving the bone marrow — a process called <em>ineffective erythropoiesis</em>.</p>
+
+    <!-- RBC comparison -->
+    <div class="rbc-grid">
+      <div class="card card-r" style="padding:9pt 10pt;">
+        <p class="eyebrow" style="color:var(--red); font-size:7pt; margin-bottom:6pt;">Thalassemic RBC</p>
+        <svg width="100%" height="60" viewBox="0 0 130 60">
+          <!-- Deformed / sickled cells -->
+          <ellipse cx="28"  cy="30" rx="16" ry="9"  fill="rgba(232,69,69,0.18)" stroke="#E84545" stroke-width="1.4"/>
+          <path d="M16,26 L24,20 L34,24 L40,18 L43,28 L38,36 L28,40 L16,36 Z" fill="rgba(232,69,69,0.13)" stroke="#E84545" stroke-width="0.9"/>
+          <ellipse cx="78"  cy="22" rx="13" ry="7"  fill="rgba(232,69,69,0.18)" stroke="#E84545" stroke-width="1.4" transform="rotate(-18 78 22)"/>
+          <ellipse cx="105" cy="40" rx="14" ry="6"  fill="rgba(232,69,69,0.18)" stroke="#E84545" stroke-width="1.4" transform="rotate(14 105 40)"/>
+          <circle  cx="60"  cy="45" r="4"            fill="rgba(232,69,69,0.25)" stroke="#E84545" stroke-width="1"/>
+          <circle  cx="92"  cy="12" r="3"            fill="rgba(232,69,69,0.25)" stroke="#E84545" stroke-width="1"/>
+        </svg>
+        <p class="body-xs">Fragile, irregular — destroyed before release. Severe anemia follows.</p>
+      </div>
+
+      <div class="card card-t" style="padding:9pt 10pt;">
+        <p class="eyebrow" style="color:var(--teal); font-size:7pt; margin-bottom:6pt;">Post-CRISPR RBC · HbF ✓</p>
+        <svg width="100%" height="60" viewBox="0 0 130 60">
+          <!-- Normal biconcave discs -->
+          <ellipse cx="32"  cy="30" rx="18" ry="11" fill="rgba(0,212,168,0.14)" stroke="#00D4A8" stroke-width="1.4"/>
+          <ellipse cx="32"  cy="30" rx="10" ry="5"  fill="rgba(0,212,168,0.07)" stroke="#00D4A8" stroke-width="0.5" opacity="0.6"/>
+          <ellipse cx="80"  cy="20" rx="16" ry="10" fill="rgba(0,212,168,0.14)" stroke="#00D4A8" stroke-width="1.4"/>
+          <ellipse cx="80"  cy="20" rx="8"  ry="4"  fill="rgba(0,212,168,0.07)" stroke="#00D4A8" stroke-width="0.5" opacity="0.6"/>
+          <ellipse cx="108" cy="42" rx="15" ry="9"  fill="rgba(0,212,168,0.14)" stroke="#00D4A8" stroke-width="1.4"/>
+          <ellipse cx="108" cy="42" rx="7"  ry="3.5" fill="rgba(0,212,168,0.07)" stroke="#00D4A8" stroke-width="0.5" opacity="0.6"/>
+        </svg>
+        <p class="body-xs">Smooth biconcave discs with functional HbF. Full oxygen delivery restored.</p>
+      </div>
+    </div>
+
+    <!-- Symptom tags -->
+    <div style="display:flex; gap:5pt; flex-wrap:wrap; align-items:center;">
+      <span class="chip chip-r">Severe Anemia</span>
+      <span class="chip chip-r">Bone Deformity</span>
+      <span class="chip chip-r">Splenomegaly</span>
+      <span class="chip chip-r">Liver Damage</span>
+      <span class="chip chip-r">Cardiac Failure</span>
+      <span class="body-xs" style="margin-left:2pt;">→ fatal in teens without treatment</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 3 · CRISPR MECHANISM HERO
+════════════════════════════════════════════════════ -->
+<section class="mechanism">
+  <p class="eyebrow mech-eyebrow">CRISPR-Cas9 Mechanism · Casgevy (exagamglogene autotemcel) · FDA + EMA Approved Dec 2023</p>
+  <p class="section-head" style="font-size:18pt; margin-bottom:4pt;">Six Steps from Broken Gene to Permanent Cure</p>
+
+  <div class="flow">
+
+    <!-- STEP 1 -->
+    <div class="flow-step">
+      <p class="step-num">01</p>
+      <div class="step-icon" style="background:rgba(245,166,35,0.1); border:1.8px solid rgba(245,166,35,0.45);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="8" r="5" stroke="#F5A623" stroke-width="1.6"/>
+          <path d="M6 22 Q14 16 22 22" stroke="#F5A623" stroke-width="1.6"/>
+          <line x1="20" y1="17" x2="26" y2="12" stroke="#F5A623" stroke-width="1.4" stroke-dasharray="2 2"/>
+          <circle cx="26" cy="11" r="2.5" fill="#F5A623" opacity="0.65"/>
+        </svg>
+      </div>
+      <p class="step-label">HSC Harvest</p>
+      <p class="step-sub">Patient's hematopoietic stem cells extracted via apheresis</p>
+    </div>
+
+    <div class="arrow-wrap">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <line x1="1" y1="8" x2="17" y2="8" stroke="#8892AA" stroke-width="1.5"/>
+        <polygon points="17,4 22,8 17,12" fill="#8892AA"/>
+      </svg>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="flow-step">
+      <p class="step-num">02</p>
+      <div class="step-icon" style="background:rgba(0,212,168,0.1); border:1.8px solid rgba(0,212,168,0.45);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <!-- Cas9 scissors -->
+          <path d="M4 4 L14 14 M14 14 L4 22"  stroke="#00D4A8" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 4 L14 14 M14 14 L24 22" stroke="#00D4A8" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="14" cy="14" r="3" fill="#00D4A8" opacity="0.55"/>
+          <circle cx="5"  cy="4"  r="2.5" stroke="#00D4A8" stroke-width="1.5"/>
+          <circle cx="5"  cy="22" r="2.5" stroke="#00D4A8" stroke-width="1.5"/>
+          <!-- guide RNA label -->
+          <text x="14" y="27" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="4.5" fill="#00D4A8" font-weight="700">gRNA</text>
+        </svg>
+      </div>
+      <p class="step-label">Cas9 + gRNA Delivery</p>
+      <p class="step-sub">Guide RNA directs Cas9 to BCL11A erythroid enhancer — ex vivo in lab</p>
+    </div>
+
+    <div class="arrow-wrap">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <line x1="1" y1="8" x2="17" y2="8" stroke="#8892AA" stroke-width="1.5"/>
+        <polygon points="17,4 22,8 17,12" fill="#8892AA"/>
+      </svg>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="flow-step">
+      <p class="step-num">03</p>
+      <div class="step-icon" style="background:rgba(232,69,69,0.1); border:1.8px solid rgba(232,69,69,0.45);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <!-- DNA strand with cut at center -->
+          <path d="M3 7 Q8 11 14 7 Q20 3 25 7"  stroke="#E84545" stroke-width="1.5"/>
+          <path d="M3 14 Q8 18 14 14 Q20 10 25 14" stroke="#E84545" stroke-width="1.5"/>
+          <!-- base pairs -->
+          <line x1="7" y1="8"  x2="7" y2="13"  stroke="#8892AA" stroke-width="1"/>
+          <line x1="21" y1="8" x2="21" y2="13" stroke="#8892AA" stroke-width="1"/>
+          <!-- cut indicator -->
+          <line x1="14" y1="3" x2="14" y2="19" stroke="#00D4A8" stroke-width="1.5" stroke-dasharray="2 1.5"/>
+          <polygon points="12,19 14,24 16,19" fill="#00D4A8"/>
+          <text x="14" y="28" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="4" fill="#00D4A8" font-weight="700">CUT</text>
+        </svg>
+      </div>
+      <p class="step-label">BCL11A Enhancer Disrupted</p>
+      <p class="step-sub">+58 erythroid enhancer cut — BCL11A silenced permanently in RBC lineage</p>
+    </div>
+
+    <div class="arrow-wrap">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <line x1="1" y1="8" x2="17" y2="8" stroke="#8892AA" stroke-width="1.5"/>
+        <polygon points="17,4 22,8 17,12" fill="#8892AA"/>
+      </svg>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="flow-step">
+      <p class="step-num">04</p>
+      <div class="step-icon" style="background:rgba(0,212,168,0.15); border:1.8px solid rgba(0,212,168,0.55);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect x="5" y="9" width="18" height="11" rx="3" fill="rgba(0,212,168,0.22)" stroke="#00D4A8" stroke-width="1.5"/>
+          <text x="14" y="17" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="6.5" font-weight="800" fill="#00D4A8">HbF ON</text>
+          <!-- glow rays -->
+          <line x1="14" y1="3" x2="14" y2="7" stroke="#00D4A8" stroke-width="1.5"/>
+          <line x1="22" y1="5" x2="20" y2="8" stroke="#00D4A8" stroke-width="1.5"/>
+          <line x1="6"  y1="5" x2="8"  y2="8" stroke="#00D4A8" stroke-width="1.5"/>
+          <line x1="14" y1="21" x2="14" y2="25" stroke="#00D4A8" stroke-width="1.5"/>
+          <line x1="22" y1="23" x2="20" y2="21" stroke="#00D4A8" stroke-width="1.5"/>
+          <line x1="6"  y1="23" x2="8"  y2="21" stroke="#00D4A8" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <p class="step-label" style="color:var(--teal);">HbF Genes Reactivate</p>
+      <p class="step-sub">HBG1/HBG2 derepressed — fetal hemoglobin produced in all descendent RBCs</p>
+    </div>
+
+    <div class="arrow-wrap">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <line x1="1" y1="8" x2="17" y2="8" stroke="#8892AA" stroke-width="1.5"/>
+        <polygon points="17,4 22,8 17,12" fill="#8892AA"/>
+      </svg>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="flow-step">
+      <p class="step-num">05</p>
+      <div class="step-icon" style="background:rgba(245,166,35,0.1); border:1.8px solid rgba(245,166,35,0.45);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <!-- IV bag -->
+          <rect x="9" y="3" width="10" height="9" rx="2" fill="rgba(245,166,35,0.2)" stroke="#F5A623" stroke-width="1.5"/>
+          <circle cx="14" cy="6" r="1.8" fill="#00D4A8" opacity="0.85"/>
+          <line x1="14" y1="12" x2="14" y2="17" stroke="#F5A623" stroke-width="1.5"/>
+          <path d="M10 17 Q14 21 18 17" fill="rgba(245,166,35,0.1)" stroke="#F5A623" stroke-width="1.5"/>
+          <line x1="14" y1="21" x2="14" y2="25" stroke="#F5A623" stroke-width="1.5"/>
+          <text x="14" y="28" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="4" fill="#F5A623" font-weight="700">INFUSE</text>
+        </svg>
+      </div>
+      <p class="step-label">Conditioning + Reinfusion</p>
+      <p class="step-sub">Myeloablative chemo clears marrow; edited HSCs infused back to engraft</p>
+    </div>
+
+    <div class="arrow-wrap">
+      <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+        <line x1="1" y1="8" x2="17" y2="8" stroke="#00D4A8" stroke-width="2"/>
+        <polygon points="17,4 22,8 17,12" fill="#00D4A8"/>
+      </svg>
+    </div>
+
+    <!-- STEP 6 -->
+    <div class="flow-step">
+      <p class="step-num">06</p>
+      <div class="step-icon" style="background:rgba(0,212,168,0.16); border:2px solid var(--teal); box-shadow:0 0 18px rgba(0,212,168,0.22);">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="8" r="5" stroke="#00D4A8" stroke-width="1.6"/>
+          <path d="M6 22 Q14 16 22 22" stroke="#00D4A8" stroke-width="1.6"/>
+          <polyline points="9,14 13,18 20,10" stroke="#00D4A8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <p class="step-label" style="color:var(--teal);">Transfusion-Free Life</p>
+      <p class="step-sub">Full RBC lineage now produces functional HbF. One treatment. Permanent.</p>
+    </div>
+
+  </div><!-- /flow -->
+
+  <!-- Insight callout -->
+  <div class="insight-box">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="flex-shrink:0">
+      <circle cx="11" cy="11" r="10" stroke="#00D4A8" stroke-width="1.5"/>
+      <text x="11" y="15" text-anchor="middle" font-size="11" fill="#00D4A8" font-weight="700" font-family="Montserrat,sans-serif">i</text>
+    </svg>
+    <p class="body-sm" style="flex:1;">
+      <strong style="color:var(--teal);">Molecular key insight:</strong>
+      Casgevy does <em>not</em> repair the broken HBB gene. It disables the developmental switch — transcription repressor BCL11A — that normally silences γ-globin (fetal hemoglobin) after birth.
+      By disrupting BCL11A's erythroid-specific enhancer via CRISPR, the fetal hemoglobin pathway is
+      <em>permanently re-engaged</em> in every red blood cell the patient will ever produce. The patient's own biology does the rest.
+      No donor. No graft-vs-host risk. No off-target events detected in trial.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 4 · CLINICAL EVIDENCE
+════════════════════════════════════════════════════ -->
+<section class="s4">
+
+  <div class="s4-left">
+    <p class="eyebrow" style="color:var(--teal);">Clinical Evidence</p>
+    <p class="section-head" style="font-size:13pt; margin:5pt 0 8pt;">CLIMB-Thal-111 · Phase 3<br>NEJM, December 2023</p>
+
+    <!-- Bar chart -->
+    <div class="bars">
+
+      <div class="bar-wrap">
+        <p class="bar-val" style="color:var(--red);">~8%</p>
+        <div class="bar-fill" style="height:16pt; background:rgba(232,69,69,0.3); border:1px solid rgba(232,69,69,0.55);"></div>
+        <p class="bar-lbl">HbF level<br>before Rx</p>
+      </div>
+
+      <div class="bar-wrap">
+        <p class="bar-val" style="color:var(--teal);">~43%</p>
+        <div class="bar-fill" style="height:68pt; background:linear-gradient(180deg, rgba(0,212,168,0.55) 0%, rgba(0,212,168,0.25) 100%); border:1px solid rgba(0,212,168,0.65);"></div>
+        <p class="bar-lbl">HbF level<br>after Rx</p>
+      </div>
+
+      <div class="bar-wrap">
+        <p class="bar-val" style="color:var(--teal); font-size:18pt;">93%</p>
+        <div class="bar-fill" style="height:78pt; background:linear-gradient(180deg, rgba(0,212,168,0.65) 0%, rgba(0,212,168,0.3) 100%); border:2px solid var(--teal); display:flex; align-items:center; justify-content:center;">
+          <span style="font-size:6.5pt; color:#00D4A8; font-weight:700; text-align:center; line-height:1.3;">TRANSFUSION<br>FREE</span>
+        </div>
+        <p class="bar-lbl">Patients<br>transfusion-free</p>
+      </div>
+
+    </div>
+
+    <p class="body-xs">
+      <strong style="color:var(--white);">n = 52 patients</strong> · Median follow-up 24.1 months ·
+      No off-target CRISPR editing detected · Effects durable at all timepoints.
+      Simultaneous reports for sickle cell disease showed identical mechanism success.
+    </p>
+  </div>
+
+  <div class="s4-right">
+    <p class="eyebrow" style="color:var(--gold);">Before vs. After CRISPR</p>
+    <p class="section-head" style="font-size:13pt; margin:5pt 0 8pt;">A Lifetime Compressed<br>into One Decision</p>
+
+    <div class="compare-grid">
+      <div class="card card-r" style="padding:9pt 10pt;">
+        <p class="eyebrow chip chip-r" style="display:block; margin-bottom:7pt; font-size:7pt;">Traditional Tx</p>
+        <div class="blist">
+          <div class="bitem"><div class="bdot bdot-r"></div><div>Transfusion every 2–4 weeks, lifelong</div></div>
+          <div class="bitem"><div class="bdot bdot-r"></div><div>Iron chelation — daily, toxic side effects</div></div>
+          <div class="bitem"><div class="bdot bdot-r"></div><div>BMT: only 30% find a HLA-matched donor</div></div>
+          <div class="bitem"><div class="bdot bdot-r"></div><div>Annual cost: catastrophic for BD families</div></div>
+          <div class="bitem"><div class="bdot bdot-r"></div><div>Life expectancy: sharply reduced</div></div>
+        </div>
+      </div>
+
+      <div class="card card-t" style="padding:9pt 10pt;">
+        <p class="eyebrow chip chip-t" style="display:block; margin-bottom:7pt; font-size:7pt;">CRISPR Therapy</p>
+        <div class="blist">
+          <div class="bitem"><div class="bdot bdot-t"></div><div>One-time treatment — no maintenance</div></div>
+          <div class="bitem"><div class="bdot bdot-t"></div><div>Autologous cells — no donor needed</div></div>
+          <div class="bitem"><div class="bdot bdot-t"></div><div>No graft-vs-host disease risk</div></div>
+          <div class="bitem"><div class="bdot bdot-t"></div><div>FDA + EMA approved Dec 8, 2023</div></div>
+          <div class="bitem"><div class="bdot bdot-t"></div><div>93% transfusion-free, effects durable</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     SECTION 5 · CASGEVY + BANGLADESH
+════════════════════════════════════════════════════ -->
+<section class="s5">
+
+  <div class="s5-left">
+    <p class="eyebrow" style="color:var(--gold); margin-bottom:9pt;">World's First CRISPR Medicine</p>
+
+    <div style="display:flex; gap:8pt; align-items:center; margin-bottom:9pt;">
+      <span class="fda-badge">FDA</span>
+      <span class="ema-badge">EMA</span>
+      <div style="font-size:8pt; color:var(--dim); line-height:1.4;">
+        Approved<br><strong style="color:var(--gold);">December 8, 2023</strong>
+      </div>
+    </div>
+
+    <p class="section-head" style="font-size:16pt; margin-bottom:3pt;">Casgevy™</p>
+    <p class="body-xs" style="margin-bottom:7pt;">exagamglogene autotemcel (exa-cel)</p>
+    <p class="body-xs" style="margin-bottom:5pt;">
+      Developed by <strong style="color:var(--white);">Vertex Pharmaceuticals</strong> + <strong style="color:var(--white);">CRISPR Therapeutics</strong>.
+      First regulatory approval in human history for any CRISPR-based medicine.
+      Indication: transfusion-dependent beta-thalassemia (TDT) in patients ≥12 years.
+    </p>
+
+    <!-- Timeline bar -->
+    <div style="display:flex; gap:0; align-items:center; margin-top:8pt;">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:3pt;">
+        <div style="width:8pt; height:8pt; border-radius:50%; background:var(--gold);"></div>
+        <p class="body-xs" style="font-size:6.5pt; text-align:center; line-height:1.2;">2012<br>CRISPR<br>discovered</p>
+      </div>
+      <div style="flex:1; height:2px; background:linear-gradient(90deg, var(--gold), var(--teal));"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:3pt;">
+        <div style="width:8pt; height:8pt; border-radius:50%; background:#aaa;"></div>
+        <p class="body-xs" style="font-size:6.5pt; text-align:center; line-height:1.2;">2020<br>NEJM<br>trial start</p>
+      </div>
+      <div style="flex:1; height:2px; background:linear-gradient(90deg, #aaa, var(--teal));"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:3pt;">
+        <div style="width:10pt; height:10pt; border-radius:50%; background:var(--teal); box-shadow:0 0 10px rgba(0,212,168,0.5);"></div>
+        <p class="body-xs" style="font-size:6.5pt; text-align:center; line-height:1.2; color:var(--teallt);">2023<br>FDA<br>APPROVED</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="s5-right">
+    <p class="eyebrow" style="color:var(--teal); margin-bottom:9pt;">Path Forward for Bangladesh</p>
+
+    <div style="display:flex; gap:10pt; align-items:flex-start;">
+      <!-- Bangladesh map silhouette -->
+      <svg width="55" height="72" viewBox="0 0 55 72" style="flex-shrink:0;" aria-label="Bangladesh map">
+        <path d="M18,4 L28,2 L40,7 L46,14 L48,24 L44,34 L47,41 L42,50 L35,58 L27,65 L21,68 L15,63 L10,53 L8,43 L6,33 L10,24 L13,14 Z"
+              fill="rgba(0,212,168,0.12)" stroke="#00D4A8" stroke-width="1.5" stroke-linejoin="round"/>
+        <text x="27" y="38" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="8" font-weight="700" fill="#00D4A8">BD</text>
+        <text x="27" y="50" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="7" font-weight="700" fill="#F5A623">7%</text>
+        <text x="27" y="59" text-anchor="middle" font-family="Montserrat,sans-serif" font-size="5.5" fill="#8892AA">carrier</text>
+      </svg>
+
+      <div style="flex:1;">
+        <div class="blist">
+          <div class="bitem" style="font-size:8.5pt;"><div class="bdot bdot-t"></div><div><strong style="color:var(--white)">Carrier screening</strong> programs — identify at-risk couples before pregnancy</div></div>
+          <div class="bitem" style="font-size:8.5pt;"><div class="bdot bdot-t"></div><div><strong style="color:var(--white)">Prenatal diagnosis</strong> via CVS or amniocentesis for at-risk families</div></div>
+          <div class="bitem" style="font-size:8.5pt;"><div class="bdot bdot-t"></div><div><strong style="color:var(--white)">Genetic counseling</strong> infrastructure at district hospital level</div></div>
+          <div class="bitem" style="font-size:8.5pt;"><div class="bdot bdot-t"></div><div><strong style="color:var(--white)">Future access:</strong> biosimilar gene therapies + government clinical programs</div></div>
+        </div>
+        <div class="cta-box">
+          <p style="font-size:8pt; color:var(--teal); font-weight:700; margin-bottom:3pt;">The science is ready. Systems must catch up.</p>
+          <p class="body-xs">Every undiagnosed thalassemia patient in Bangladesh is a solvable problem — if genetic medicine reaches them. Know your genes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="refs">
+    <strong>References &nbsp;</strong>
+    1. Frangoul H et al. CRISPR-Cas9 Gene Editing for Sickle Cell Disease and β-Thalassemia. <em>N Engl J Med</em> 384:252–260 (2021). &nbsp;·&nbsp;
+    2. Locatelli F et al. Exagamglogene Autotemcel for Transfusion-Dependent β-Thalassemia. <em>N Engl J Med</em> (Dec 2023). &nbsp;·&nbsp;
+    3. US FDA. FDA Approves Casgevy (exagamglogene autotemcel) for TDT. <em>FDA.gov</em>, Dec 8, 2023. &nbsp;·&nbsp;
+    4. Taher AT et al. β-thalassaemia. <em>Nat Rev Dis Primers</em> 7:24 (2021). &nbsp;·&nbsp;
+    5. Doudna JA &amp; Charpentier E. A Programmable Dual-RNA-Guided DNA Endonuclease. <em>Science</em> 337:816–821 (2012).
+  </div>
+
+  <div style="text-align:right; flex-shrink:0;">
+    <span class="busb-badge">BUSB</span>
+    <p class="comp-tag">World DNA Day Poster Competition 2026<br>Theme: Genetic Disorder &amp; Medication<br>BRAC University · April 25, 2026</p>
+  </div>
+</footer>
+
+</div><!-- /poster -->
+</body>
+</html>
